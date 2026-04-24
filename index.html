@@ -246,7 +246,16 @@ let shortlistScores={};// {Arquitectas:{Arq-08:7,...}, Grietas:{...}}
 let catWinners={};     // {Arquitectas:[top1,top2], Grietas:[...]}
 
 function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById('screen-'+id).classList.add('active');window.scrollTo(0,0)}
-function pickRole(r){voterRole=r;document.getElementById('author-select-box').className=r==='Autor'?'visible':'hidden';document.getElementById('editor-select-box').className=r==='Editor'?'visible':'hidden';document.getElementById('public-name-box').className=r==='Publico'?'visible':'hidden';document.getElementById('name-title').textContent=r==='Autor'?'Tus datos (autor/a)':(r==='Editor'?'Tus datos (editor/mentor)':'Tus datos (publico general)');showScreen('name')}
+function pickRole(r){
+if(r==='Autor'){const p=prompt('Esta via es solo para autores. Introduce la contrasena:');if(p===null)return;if(p!==PWD_AUTORES){alert('Contrasena incorrecta');return}}
+else if(r==='Editor'){const p=prompt('Esta via es solo para editores y mentor. Introduce la contrasena:');if(p===null)return;if(p!==PWD_EDITORES){alert('Contrasena incorrecta');return}}
+voterRole=r;
+document.getElementById('author-select-box').className=r==='Autor'?'visible':'hidden';
+document.getElementById('editor-select-box').className=r==='Editor'?'visible':'hidden';
+document.getElementById('public-name-box').className=r==='Publico'?'visible':'hidden';
+document.getElementById('name-title').textContent=r==='Autor'?'Tus datos (autor/a)':(r==='Editor'?'Tus datos (editor/mentor)':'Tus datos (publico general)');
+showScreen('name')
+}
 
 function confirmName(){
 let n='';
